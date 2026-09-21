@@ -1,27 +1,21 @@
-function App() {
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout/Layout.jsx";
+import HomePage from "./pages/HomePage/HomePage.jsx";
+import TeachersPage from "./pages/TeachersPage/TeachersPage.jsx";
+import FavouritesPage from "./pages/FavouritesPage/FavouritesPage.jsx";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src="Octocat.png" className="App-logo" alt="logo" />
-        <p>
-          GitHub Codespaces <span className="heart">♥️</span> React
-        </p>
-        <p className="small">
-          Edit <code>src/App.jsx</code> and save to reload.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="teachers" element={<TeachersPage />} />
+          <Route path="favourites" element={<FavouritesPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

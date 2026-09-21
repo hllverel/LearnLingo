@@ -1,0 +1,87 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.hero {
+    display:flex;
+    justify-content: center;
+    gap: 24px;
+}
+
+.herocontent {
+    width: 720px;
+    padding: 98px 64px;
+}
+
+h1 {
+    margin-bottom: 32px;
+}
+
+.highlight {
+    font-weight: 400;
+font-style: italic;
+background-color: var(--yellow-light);
+}
+
+.description {
+    font-size: 16px;
+line-height: 138%;
+letter-spacing: -0.02em;
+margin-bottom: 64px;
+width: 471px;
+}
+
+.ctabutton {
+    border-radius: 12px;
+width: 267px;
+height: 60px;
+background: var(--yellow);
+font-weight: 700;
+font-size: 18px;
+line-height: 156%;
+text-align: center;
+}
+
+.heroimg {
+    border-radius: 30px;
+width: 568px;
+height: 530px;
+}
+
+.stats {
+    border: 1.50px dashed var(--yellow);
+border-radius: 30px;
+width: 1312px;
+padding: 40px 123px;
+}
+
+.statslist {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.statitem {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.statvalue {
+    font-weight: 500;
+font-size: 28px;
+line-height: 114%;
+letter-spacing: -0.02em;
+}
+
+.statlabel {
+font-size: 14px;
+line-height: 129%;
+letter-spacing: -0.02em;
+color: rgba(18, 20, 23, 0.7);
+max-width: 96px;
+}

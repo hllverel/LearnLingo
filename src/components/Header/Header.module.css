@@ -1,0 +1,56 @@
+.header {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 64px;
+}
+
+.logo {
+    display: flex;
+    gap: 8px;
+}
+
+.logosvg {
+    width: 28px;
+    height: 28px;
+}
+
+.logo p {
+    font-weight: 500;
+font-size: 20px;
+line-height: 120%;
+letter-spacing: -0.02em;
+}
+
+.auth {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.loginbutton {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-weight: 700;
+font-size: 16px;
+line-height: 125%;
+}
+
+.loginbutton svg {
+    width: 20px;
+    height: 20px;
+}
+
+.registerbutton {
+    border-radius: 12px;
+width: 166px;
+height: 48px;
+background: #121417;
+font-weight: 700;
+font-size: 16px;
+line-height: 125%;
+color: #fff;
+text-align: center;
+}
