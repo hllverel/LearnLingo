@@ -1,8 +1,46 @@
 import { Link } from "react-router-dom";
-import Navigation from "../Navigation/Navigation.jsx"
+import Navigation from "../Navigation/Navigation.jsx";
+import Modal from "../Modal/Modal.jsx";
+import RegisterForm from "../RegisterForm/RegisterForm.jsx";
+import LoginForm from "../LoginForm/LoginForm.jsx";
+import { registerUser, loginUser } from "../../firebase/auth.js";
+import {useModal} from "../../hooks/useModal.js";
 import styles from "./Header.module.css";
 
+const getAuthErrorMessage = (error) => {
+  if (error.code === "auth/email-already-in-use") {
+    return "This email is already registered. Try logging in instead.";
+  }
+  if (error.code === "auth/invalid-credential") {
+    return "Incorrect email or password.";
+  }
+  return "Something went wrong. Please try again.";
+};
+
 const Header = () => {
+  const registerModal = useModal();
+  const loginModal = useModal();
+
+  const handleRegister = async (data) => {
+    try {
+      registerModal.setError(null);
+      await registerUser(data);
+      registerModal.close();
+    } catch (error) {
+      registerModal.setError(getAuthErrorMessage(error));
+    }
+  };
+
+  const handleLogin = async (data) => {
+    try {
+      loginModal.setError(null);
+      await loginUser(data);
+      loginModal.close();
+    } catch (error) {
+      loginModal.setError(getAuthErrorMessage(error));
+    }
+  };
+
   return (
     <header className={styles.header}>
         <Link to="/" className={styles.logo}>
@@ -15,16 +53,27 @@ const Header = () => {
         <Navigation />
 
         <div className={styles.auth}>
-          <button type="button" className={styles.loginbutton}>
+          <button type="button" className={styles.loginbutton} onClick={loginModal.open}>
             <svg className={styles.loginsvg}>
                 <use href="/symbol-defs.svg#TravelTrucksLogo"></use>
             </svg>
             Log in
           </button>
-          <button type="button" className={styles.registerbutton}>
+          <button type="button" className={styles.registerbutton} onClick={registerModal.open}>
             Registration
           </button>
         </div>
+
+      {registerModal.isOpen && (
+        <Modal onClose={registerModal.close}>
+          <RegisterForm onSubmit={handleRegister} submitError={registerModal.error} />
+        </Modal>
+      )}
+      {loginModal.isOpen && (
+        <Modal onClose={loginModal.close}>
+          <LoginForm onSubmit={handleLogin} submitError={loginModal.error} />
+        </Modal>
+      )}
     </header>
   );
 };
