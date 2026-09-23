@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import Navigation from "../Navigation/Navigation.jsx";
 import Modal from "../Modal/Modal.jsx";
 import RegisterForm from "../RegisterForm/RegisterForm.jsx";
 import LoginForm from "../LoginForm/LoginForm.jsx";
-import { registerUser, loginUser } from "../../firebase/auth.js";
+import { registerUser, loginUser, logoutUser } from "../../firebase/auth.js";
 import {useModal} from "../../hooks/useModal.js";
 import styles from "./Header.module.css";
 
@@ -18,6 +19,8 @@ const getAuthErrorMessage = (error) => {
 };
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const { isLoggedIn, user } = useSelector((state) => state.auth);
   const registerModal = useModal();
   const loginModal = useModal();
 
@@ -41,6 +44,10 @@ const Header = () => {
     }
   };
 
+  const handleLogout = () => {
+    logoutUser();
+  };
+
   return (
     <header className={styles.header}>
         <Link to="/" className={styles.logo}>
@@ -50,19 +57,28 @@ const Header = () => {
             <p>LearnLingo</p>
         </Link>
 
-        <Navigation />
+        <Navigation isLoggedIn={isLoggedIn} />
 
-        <div className={styles.auth}>
-          <button type="button" className={styles.loginbutton} onClick={loginModal.open}>
-            <svg className={styles.loginsvg}>
-                <use href="/symbol-defs.svg#TravelTrucksLogo"></use>
-            </svg>
-            Log in
-          </button>
-          <button type="button" className={styles.registerbutton} onClick={registerModal.open}>
-            Registration
-          </button>
-        </div>
+        {isLoggedIn ? (
+          <div className={styles.auth}>
+            <p className={styles.username}>{user.name || user.email}</p>
+            <button type="button" className={styles.registerbutton} onClick={handleLogout}>
+              Log out
+            </button>
+          </div>
+        ) : (
+          <div className={styles.auth}>
+            <button type="button" className={styles.loginbutton} onClick={loginModal.open}>
+              <svg className={styles.loginsvg}>
+                  <use href="/symbol-defs.svg#TravelTrucksLogo"></use>
+              </svg>
+              Log in
+            </button>
+            <button type="button" className={styles.registerbutton} onClick={registerModal.open}>
+              Registration
+            </button>
+          </div>
+        )}
 
       {registerModal.isOpen && (
         <Modal onClose={registerModal.close}>
