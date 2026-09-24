@@ -1,19 +1,176 @@
 .card {
-    border-radius: 24px;
-padding: 24px;
-width: 1184px;
-background: var(--bg);
-display: flex;
-gap: 48px;
+  border-radius: 24px;
+  padding: 24px;
+  width: 1184px;
+  background: var(--sage-light);
+  display: flex;
+  gap: 48px;
+  margin-bottom: 32px;
+}
+
+.profilepic {
+  position: relative;
+}
+
+.profilepic svg {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 19px;
+  right: 23px;
 }
 
 .avatar {
-    border: 3px solid #fbe9ba;
-border-radius: 100px;
-width: 120px;
-height: 120px;
+  border: 3px solid #fbe9ba;
+  border-radius: 100px;
+  width: 120px;
+  height: 120px;
+  padding: 12px;
 }
 
 .content {
-    
+  width: 968px;
+}
+
+.toprow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  align-items: center;
+}
+
+.languagesLabel {
+  font-weight: 500;
+  color: var(--light-text);
+}
+
+.toprowright {
+  display: flex;
+}
+
+.toprowdetails {
+  display: flex;
+  gap: 16px;
+  font-weight: 500;
+  margin-right: 64px;
+  align-items: center;
+}
+
+.lessons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lessons svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: var(--text);
+}
+
+.toprowdetails span {
+  color: rgba(18, 20, 23, 0.2);
+}
+
+.price {
+  color: #38cd3e !important;
+}
+
+.favouritebutton svg {
+  width: 26px;
+  height: 26px;
+  stroke-width: 2px;
+  stroke: #121417;
+  fill: none;
+}
+
+.favouritebutton.active svg {
+  fill: var(--yellow);
+  stroke-width: 1px;
+  stroke: var(--yellow);
+}
+
+.name {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1;
+  margin-bottom: 32px;
+}
+
+.details {
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.detail:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.detaillabel {
+  color: var(--light-text);
+}
+
+.languagedetail {
+  text-decoration: underline;
+}
+
+.readmore {
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+}
+
+.experience {
+  margin-top: 16px;
+  margin-bottom: 32px;
+}
+
+.review {
+  margin-bottom: 32px;
+}
+
+.reviewername {
+  color: var(--light-text);
+  margin-bottom: 2px;
+}
+
+.reviewerrating {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.reviewerrating svg {
+  width: 16px;
+  height: 16px;
+}
+
+.reviewcomment {
+  font-weight: 500;
+}
+
+.levels {
+  display: flex;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.leveltag {
+  border: 1px solid rgba(18, 20, 23, 0.2);
+  border-radius: 35px;
+  padding: 8px 12px;
+}
+
+.booktrialbutton {
+  border-radius: 12px;
+  padding: 16px 48px;
+  background: var(--yellow);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.55556;
+  margin-top: 32px;
 }

@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebase.js";
 import { setUser, clearUser } from "./redux/auth/authSlice.js";
+import { fetchFavourites, clearFavourites } from "./redux/favourites/favouritesSlice.js";
 import Layout from "./components/Layout/Layout.jsx";
 import HomePage from "./pages/HomePage/HomePage.jsx";
 import TeachersPage from "./pages/TeachersPage/TeachersPage.jsx";
@@ -16,15 +17,11 @@ const App = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        dispatch(
-          setUser({
-            uid: user.uid,
-            email: user.email,
-            name: user.displayName,
-          })
-        );
+        dispatch(setUser({ uid: user.uid, email: user.email, name: user.displayName }));
+        dispatch(fetchFavourites(user.uid));
       } else {
         dispatch(clearUser());
+        dispatch(clearFavourites());
       }
     });
 

@@ -29,10 +29,12 @@ const Modal = ({ onClose, children }) => {
         <button
           type="button"
           onClick={onClose}
-          className={styles.closeButton}
+          className={styles.closebutton}
           aria-label="Close modal"
         >
-          <img src="/assets/close.svg" alt="" width="32" height="32" />
+          <svg>
+            <use href="/symbol-defs.svg#close" />
+          </svg>
         </button>
         {children}
       </div>

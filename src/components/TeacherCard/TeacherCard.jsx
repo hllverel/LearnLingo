@@ -1,8 +1,14 @@
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleFavourite } from "../../redux/favourites/favouritesSlice.js";
 import styles from "./TeacherCard.module.css";
 
-const TeacherCard = ({ teacher }) => {
+const TeacherCard = ({ teacher, onRequireLogin }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const dispatch = useDispatch();
+  const { isLoggedIn, user } = useSelector((state) => state.auth);
+  const favouriteIds = useSelector((state) => state.favourites.ids);
+  const isFavourite = favouriteIds.includes(teacher.id);
 
   const {
     avatar_url,
@@ -19,44 +25,73 @@ const TeacherCard = ({ teacher }) => {
     reviews,
   } = teacher;
 
+
+  const handleFavouriteClick = () => {
+    if (!isLoggedIn) {
+      onRequireLogin();
+      return;
+    }
+    dispatch(
+      toggleFavourite({ uid: user.uid, teacherId: teacher.id, isFavourite })
+    );
+  };
+
   return (
     <li className={styles.card}>
-      <img
-        src={avatar_url}
-        alt={`${name} ${surname}`}
-        className={styles.avatar}
-      />
+      <div className={styles.profilepic}>
+        <img
+          src={avatar_url}
+          alt={`${name} ${surname}`}
+          className={styles.avatar}
+        />
+        <svg>
+          <use href="/symbol-defs.svg#online" />
+        </svg>
+      </div>
       <div className={styles.content}>
-        <div className={styles.topRow}>
+        <div className={styles.toprow}>
           <p className={styles.languagesLabel}>Languages</p>
-          <p className={styles.meta}>Lessons online</p>
-          <p className={styles.meta}>Lessons done: {lessons_done}</p>
-          <p className={styles.meta}>Rating: {rating}</p>
-          <p className={styles.meta}>
-            Price / 1 hour: <span className={styles.price}>{price_per_hour}$</span>
-          </p>
-          <button type="button" className={styles.favoriteButton} aria-label="Add to favourites">
-            <img src="/assets/heart.svg" alt="" width="26" height="26" />
-          </button>
+          <div className={styles.toprowright}>
+            <div className={styles.toprowdetails}>
+              <div className={styles.lessons}>
+                <svg>
+                  <use href="/symbol-defs.svg#book" />
+                </svg>
+                <p className={styles.meta}>Lessons online</p>
+              </div>
+              <span>|</span>
+              <p className={styles.meta}>Lessons done: {lessons_done}</p>
+              <span>|</span>
+              <p className={styles.meta}>Rating: {rating}</p>
+              <span>|</span>
+              <p className={styles.meta}>
+                Price / 1 hour: <span className={styles.price}>{price_per_hour}$</span>
+              </p>
+            </div>
+            <button type="button" className={isFavourite ? `${styles.favouritebutton} ${styles.active}` : styles.favouritebutton} onClick={handleFavouriteClick} >
+              <svg>
+                <use href="/symbol-defs.svg#favourite" />
+              </svg>
+            </button>
+          </div>
         </div>
-        <p className={styles.name}>
-          {name} {surname}
-        </p>
-        <p className={styles.detail}>
-          <span className={styles.detailLabel}>Speaks:</span>{" "}
-          {languages.join(", ")}
-        </p>
-        <p className={styles.detail}>
-          <span className={styles.detailLabel}>Lesson Info:</span> {lesson_info}
-        </p>
-        <p className={styles.detail}>
-          <span className={styles.detailLabel}>Conditions:</span>{" "}
-          {conditions.join(" ")}
-        </p>
-        <button
+        <p className={styles.name}>{name} {surname}</p>
+        <div className={styles.details}>
+          <p className={styles.detail}>
+            <span className={styles.detaillabel}>Speaks:</span>{" "}
+            <span className={styles.languagedetail}>{languages.join(", ")}</span>
+          </p>
+          <p className={styles.detail}>
+            <span className={styles.detaillabel}>Lesson Info:</span> {lesson_info}
+          </p>
+          <p className={styles.detail}>
+            <span className={styles.detaillabel}>Conditions:</span>{" "}
+            {conditions.join(" ")}
+          </p>
+        </div>
+        <button className={styles.readmore}
           type="button"
           onClick={() => setIsExpanded((prev) => !prev)}
-          className={styles.readMore}
         >
           {isExpanded ? "Read less" : "Read more"}
         </button>
@@ -65,22 +100,25 @@ const TeacherCard = ({ teacher }) => {
             <p className={styles.experience}>{experience}</p>
             {reviews.map((review) => (
               <div key={review.reviewer_name} className={styles.review}>
-                <p className={styles.reviewerName}>{review.reviewer_name}</p>
-                <p className={styles.reviewerRating}>⭐ {review.reviewer_rating}</p>
-                <p className={styles.reviewComment}>{review.comment}</p>
+                <p className={styles.reviewername}>{review.reviewer_name}</p>
+                <div className={styles.reviewerrating}>
+                  <svg><use href="/symbol-defs.svg#star" /></svg>
+                  <p>{review.reviewer_rating}</p>
+                </div>
+                <p className={styles.reviewcomment}>{review.comment}</p>
               </div>
             ))}
           </div>
         )}
         <ul className={styles.levels}>
           {levels.map((level) => (
-            <li key={level} className={styles.levelTag}>
+            <li key={level} className={styles.leveltag}>
               #{level}
             </li>
           ))}
         </ul>
         {isExpanded && (
-          <button type="button" className={styles.bookButton}>
+          <button type="button" className={styles.booktrialbutton}>
             Book trial lesson
           </button>
         )}

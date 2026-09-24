@@ -14,11 +14,20 @@
   overflow-y: auto;
 }
 
-.closeButton {
+.closebutton {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  background: none;
-  border: none;
+  top: 7px;
+  right: 7px;
   cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closebutton svg {
+  width: 19px;
+  height: 19px;
+  stroke: var(--text);
 }
