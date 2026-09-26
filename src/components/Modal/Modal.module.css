@@ -12,6 +12,9 @@
   position: relative;
   max-height: 90vh;
   overflow-y: auto;
+  background: var(--bg);
+  padding: 50px;
+  border-radius: 12px;
 }
 
 .closebutton {

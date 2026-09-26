@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchTeachersPage } from "../../services/teachers.js";
+import {
+  fetchTeachersPage,
+  fetchAllTeachers as fetchAllTeachersApi,
+  PAGE_SIZE,
+} from "../../services/teachers.js";
 
 export const fetchTeachers = createAsyncThunk(
   "teachers/fetchTeachers",
@@ -15,6 +19,13 @@ export const fetchMoreTeachers = createAsyncThunk(
   }
 );
 
+export const fetchAllTeachers = createAsyncThunk(
+  "teachers/fetchAllTeachers",
+  async () => {
+    return await fetchAllTeachersApi();
+  }
+);
+
 const teachersSlice = createSlice({
   name: "teachers",
   initialState: {
@@ -24,8 +35,21 @@ const teachersSlice = createSlice({
     isLoading: false,
     isLoadingMore: false,
     error: null,
+    allTeachers: [],
+    isLoadingAll: false,
+    filters: { language: "", level: "", price: "" },
+    visibleCount: PAGE_SIZE,
   },
-  reducers: {},
+  reducers: {
+    setFilter: (state, action) => {
+      const { field, value } = action.payload;
+      state.filters[field] = value;
+      state.visibleCount = PAGE_SIZE;
+    },
+    loadMoreFiltered: (state) => {
+      state.visibleCount += PAGE_SIZE;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTeachers.pending, (state) => {
@@ -54,8 +78,19 @@ const teachersSlice = createSlice({
       .addCase(fetchMoreTeachers.rejected, (state, action) => {
         state.isLoadingMore = false;
         state.error = action.error.message;
+      })
+      .addCase(fetchAllTeachers.pending, (state) => {
+        state.isLoadingAll = true;
+      })
+      .addCase(fetchAllTeachers.fulfilled, (state, action) => {
+        state.isLoadingAll = false;
+        state.allTeachers = action.payload;
+      })
+      .addCase(fetchAllTeachers.rejected, (state) => {
+        state.isLoadingAll = false;
       });
   },
 });
 
+export const { setFilter, loadMoreFiltered } = teachersSlice.actions;
 export default teachersSlice.reducer;

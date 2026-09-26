@@ -1,35 +1,39 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchTeachers } from "../../redux/teachers/teachersSlice.js";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { fetchTeachersByIds } from "../../services/teachers.js";
 import TeacherCard from "../../components/TeacherCard/TeacherCard.jsx";
 import styles from "./FavouritesPage.module.css";
 
 const FavouritesPage = () => {
-  const dispatch = useDispatch();
-  const { items: teachers, isLoading } = useSelector((state) => state.teachers);
   const favouriteIds = useSelector((state) => state.favourites.ids);
+  const [teachers, setTeachers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (teachers.length === 0) {
-      dispatch(fetchTeachers());
+    if (favouriteIds.length === 0) {
+      setTeachers([]);
+      setIsLoading(false);
+      return;
     }
-  }, [dispatch, teachers.length]);
 
-  const favouriteTeachers = teachers.filter((teacher) =>
-    favouriteIds.includes(teacher.id)
-  );
+    setIsLoading(true);
+    fetchTeachersByIds(favouriteIds).then((result) => {
+      setTeachers(result);
+      setIsLoading(false);
+    });
+  }, [favouriteIds]);
 
   if (isLoading) {
     return <p>Loading...</p>;
   }
 
-  if (favouriteTeachers.length === 0) {
+  if (teachers.length === 0) {
     return <p>You haven't added any teachers to your favourites yet.</p>;
   }
 
   return (
     <ul className={styles.list}>
-      {favouriteTeachers.map((teacher) => (
+      {teachers.map((teacher) => (
         <TeacherCard key={teacher.id} teacher={teacher} onRequireLogin={() => {}} />
       ))}
     </ul>

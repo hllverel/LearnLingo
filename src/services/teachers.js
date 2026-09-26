@@ -36,3 +36,21 @@ export const fetchTeachersPage = async (startAfterKey) => {
 
   return { teachers, lastKey, hasMore };
 };
+
+export const fetchTeacherById = async (id) => {
+  const { data } = await axios.get(`${databaseURL}/teachers/${id}.json`);
+  return data ? { id, ...data } : null;
+};
+
+export const fetchTeachersByIds = async (ids) => {
+  const results = await Promise.all(ids.map(fetchTeacherById));
+  return results.filter((teacher) => teacher !== null);
+};
+
+export const fetchAllTeachers = async () => {
+  const { data } = await axios.get(`${databaseURL}/teachers.json`);
+  if (!data) return [];
+  return Object.entries(data)
+    .filter(([, value]) => value != null)
+    .map(([id, teacher]) => ({ id, ...teacher }));
+};
