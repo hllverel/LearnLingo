@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleFavourite } from "../../redux/favourites/favouritesSlice.js";
+import Modal from "../Modal/Modal.jsx";
+import BookingForm from "../BookingForm/BookingForm.jsx";
+import { createBooking } from "../../services/bookings.js";
+import { useModal } from "../../hooks/useModal.js";
 import styles from "./TeacherCard.module.css";
 
 const TeacherCard = ({ teacher, onRequireLogin }) => {
@@ -34,6 +38,28 @@ const TeacherCard = ({ teacher, onRequireLogin }) => {
     dispatch(
       toggleFavourite({ uid: user.uid, teacherId: teacher.id, isFavourite })
     );
+  };
+
+  const bookingModal = useModal();
+  const [bookingSuccess, setBookingSuccess] = useState(false);
+
+  const handleBookSubmit = async (data) => {
+    try {
+      bookingModal.setError(null);
+      await createBooking({
+        teacherId: teacher.id,
+        teacherName: `${name} ${surname}`,
+        ...data,
+      });
+      setBookingSuccess(true);
+    } catch (error) {
+      bookingModal.setError("Something went wrong. Please try again.");
+    }
+  };
+
+  const closeBookingModal = () => {
+    bookingModal.close();
+    setBookingSuccess(false);
   };
 
   return (
@@ -118,12 +144,28 @@ const TeacherCard = ({ teacher, onRequireLogin }) => {
           ))}
         </ul>
         {isExpanded && (
-          <button type="button" className={styles.booktrialbutton}>
+          <button type="button" onClick={bookingModal.open} className={styles.booktrialbutton}>
             Book trial lesson
           </button>
         )}
+        {bookingModal.isOpen && (
+          <Modal onClose={closeBookingModal}>
+            {bookingSuccess ? (
+              <p className={styles.bookingSuccess}>
+                Thank you! Your trial lesson request has been sent.
+              </p>
+            ) : (
+              <BookingForm
+                teacher={teacher}
+                onSubmit={handleBookSubmit}
+                submitError={bookingModal.error}
+              />
+            )}
+          </Modal>
+        )}
       </div>
     </li>
+
   );
 };
 
