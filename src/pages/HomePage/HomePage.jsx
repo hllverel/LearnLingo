@@ -34,11 +34,13 @@ const HomePage = () => {
             Get Started
           </button>
         </div>
-          <img
+        <div className={styles.heroimgwrapper}>
+          {/* <img
             src="/assets/heroimg-yellow.png"
             alt="Smiling person with curly hair winking behind a laptop"
             className={styles.heroimg}
-          />
+          /> */}
+        </div>
       </section>
       <section className={styles.stats}>
         <ul className={styles.statslist}>

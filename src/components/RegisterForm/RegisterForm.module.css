@@ -53,10 +53,10 @@
   font-size: 18px;
   line-height: 1.55556;
   text-align: center;
-  background: var(--yellow);
+  background: var(--color-primary);
   margin-top: 22px;
 }
 
 .submitbutton:hover {
-  background: var(--yellow-light);
+  background: var(--color-light);
 }

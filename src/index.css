@@ -1,18 +1,32 @@
 :root {
-  --yellow: #f4c550;
-  --yellow-light: #fbe9ba;
-  --sage: #9fbaae;
-  --sage-light: #cbded3;
-  --blue: #9fb7ce;
-  --blue-light: #bfd6ea;
-  --rose: #e0a39a;
-  --rose-light: #f2c0bd;
-  --orange: #f0aa8d;
-  --peach: #f4c8ba;
+  --color-primary: #f4c550;
+  --color-light: #fbe9ba;
   --bg: #ffffff;
   --text: #121417;
   --light-text: #8a8a89;
 }
+
+/* #region THEMES */
+[data-theme="sage"] {
+  --color-primary: #9fbaae;
+  --color-light: #cbded3;
+}
+
+[data-theme="blue"] {
+  --color-primary: #9fb7ce;
+  --color-light: #bfd6ea;
+}
+
+[data-theme="rose"] {
+  --color-primary: #e0a39a;
+  --color-light: #f2c0bd;
+}
+
+[data-theme="peach"] {
+  --color-primary: #f0aa8d;
+  --color-light: #f4c8ba;
+}
+/* #endregion */
 
 * {
   box-sizing: border-box;

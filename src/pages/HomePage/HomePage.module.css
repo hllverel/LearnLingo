@@ -26,7 +26,7 @@ h1 {
 .highlight {
   font-weight: 400;
   font-style: italic;
-  background-color: var(--yellow-light);
+  background-color: var(--color-light);
 }
 
 .description {
@@ -41,7 +41,7 @@ h1 {
   border-radius: 12px;
   width: 267px;
   height: 60px;
-  background: var(--yellow);
+  background: var(--color-primary);
   font-weight: 700;
   font-size: 18px;
   line-height: 156%;
@@ -49,17 +49,38 @@ h1 {
 }
 
 .ctabutton:hover {
-  background: var(--yellow-light);
+  background: var(--color-light);
 }
 
-.heroimg {
+.heroimgwrapper {
   border-radius: 30px;
   width: 568px;
   height: 530px;
+  background-image: url("/assets/heroimg-yellow.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
+/* #region THEME HERO IMAGES */
+[data-theme="sage"] .heroimgwrapper {
+  background-image: url("/assets/heroimg-sage.png");
+}
+
+[data-theme="blue"] .heroimgwrapper {
+  background-image: url("/assets/heroimg-blue.png");
+}
+
+[data-theme="rose"] .heroimgwrapper {
+  background-image: url("/assets/heroimg-rose.png");
+}
+
+[data-theme="peach"] .heroimgwrapper {
+  background-image: url("/assets/heroimg-peach.png");
+}
+/* #endregion */
+
 .stats {
-  border: 1.5px dashed var(--yellow);
+  border: 1.5px dashed var(--color-primary);
   border-radius: 30px;
   width: 1312px;
   padding: 40px 123px;
