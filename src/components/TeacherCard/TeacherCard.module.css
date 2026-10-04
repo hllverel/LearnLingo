@@ -21,7 +21,7 @@
 }
 
 .avatar {
-  border: 3px solid #fbe9ba;
+  border: 3px solid var(--color-light);
   border-radius: 100px;
   width: 120px;
   height: 120px;
@@ -86,9 +86,9 @@
 }
 
 .favouritebutton.active svg {
-  fill: var(--yellow);
+  fill: var(--color-primary);
   stroke-width: 1px;
-  stroke: var(--yellow);
+  stroke: var(--color-primary);
 }
 
 .name {
@@ -168,7 +168,7 @@
 .booktrialbutton {
   border-radius: 12px;
   padding: 16px 48px;
-  background: var(--yellow);
+  background: var(--color-primary);
   font-weight: 700;
   font-size: 18px;
   line-height: 1.55556;
@@ -176,5 +176,5 @@
 }
 
 .booktrialbutton:hover {
-  background: var(--yellow-light);
+  background: var(--color-light);
 }

@@ -5,6 +5,9 @@ import { store } from './redux/store.js';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { applyRandomTheme } from "./utils/themes.js";
+
+applyRandomTheme();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
