@@ -1,70 +1,107 @@
-# GitHub Codespaces ♥️ React
+# LearnLingo
 
-Welcome to your shiny new Codespace running React! We've got everything fired up and running for you to explore React.
+LearnLingo is a web application for a company offering online language learning services. Users can browse language tutors, filter them by language, proficiency level, and hourly rate, and save tutors to a personal favourites list. Registered users can also book a free trial lesson with any tutor.
 
-You've got a blank canvas to work on from a git perspective as well. There's a single initial commit with the what you're seeing right now - where you go from here is up to you!
+## Live demo
 
-Everything you do here is contained within this one codespace. There is no repository on GitHub yet. If and when you’re ready you can click "Publish Branch" and we’ll create your repository and push up your project. If you were just exploring then and have no further need for this code then you can simply delete your codespace and it's gone forever.
+[coming soon]
 
-This project was bootstrapped for you with [Vite](https://vitejs.dev/).
+## Pages
 
-## Available Scripts
+- **Home** — introduces the platform and links to the Teachers page.
+- **Teachers** — a searchable, filterable list of tutors with pagination ("Load more").
+- **Favourites** — a private page, available only to logged-in users, listing the tutors they've saved.
 
-In the project directory, you can run:
+## Technologies
 
-### `npm start`
+- **React** (with **Vite** as the build tool)
+- **React Router** — client-side routing between the three pages, plus a private route guard for Favourites
+- **Redux Toolkit** / **React Redux** — global state for authentication, teacher data, and favourites
+- **Axios** — HTTP requests to the Firebase Realtime Database REST API
+- **Firebase**
+  - **Authentication** — email/password sign-up, log-in, session persistence, and log-out
+  - **Realtime Database** — stores teacher records, users' favourites, and trial lesson bookings
+- **React Hook Form** + **Yup** (+ `@hookform/resolvers`) — form state and validation for registration, log-in, and booking forms
+- **CSS Modules** — component-scoped styling
 
-We've already run this for you in the `Codespaces: server` terminal window below. If you need to stop the server for any reason you can just run `npm start` again to bring it back online.
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000/](http://localhost:3000/) in the built-in Simple Browser (`Cmd/Ctrl + Shift + P > Simple Browser: Show`) to view your running application.
+- Email/password authentication via Firebase, with the user's session restored automatically on page refresh.
+- A searchable list of tutors with filters for language, proficiency level, and hourly price.
+- Server-side pagination ("Load more") against the Firebase Realtime Database for the unfiltered tutor list; client-side filtering/pagination once a filter is active.
+- Favouriting tutors (stored per-user in the Realtime Database), with a login-required prompt for unauthenticated users.
+- A private Favourites page, accessible only to authenticated users.
+- A trial lesson booking form, validated with React Hook Form and Yup, which writes a new entry to the Realtime Database.
+- Modals (Registration, Log in, Book trial lesson, login-required) that close via the X icon, a backdrop click, or the Esc key.
 
-The page will reload automatically when you make changes.\
-You may also see any lint errors in the console.
+## Technical requirements
 
-### `npm test`
+This project was built to the following specification:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Routing implemented with React Router.
+- State management implemented with Redux.
+- Authentication (sign-up, log-in, session fetching, log-out) implemented with Firebase.
+- A `teachers` collection in Firebase Realtime Database with fields: `name`, `surname`, `languages`, `levels`, `rating`, `reviews`, `price_per_hour`, `lessons_done`, `avatar_url`, `lesson_info`, `conditions`, `experience`.
+- Registration and log-in forms built with React Hook Form and Yup, with all fields required.
+- Modals closeable via X icon, backdrop click, or Esc key.
+- A styled teacher card matching the provided mockup.
+- The Teachers page displays 4 cards at a time, with additional cards loaded via a "Load more" button that queries the database again.
+- Clicking the favourite ("heart") icon:
+  - as an unauthenticated user, shows a message that only authenticated users can use this feature;
+  - as an authenticated user, adds/removes the card from favourites and updates the icon's appearance.
+- The user's last favourited state persists across page refreshes.
+- A "Read more" button expands the card to show the tutor's full bio and student reviews.
+- A "Book trial lesson" button opens a modal with a validated booking form.
+- A private "Favourites" page, styled identically to the Teachers page, listing only the user's favourited tutors.
+- Filtering by language, proficiency level, and hourly price (starred task).
 
-### `npm run build`
+## Getting started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerequisites
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Node.js
+- A Firebase project with **Authentication** (Email/Password provider) and **Realtime Database** enabled
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Installation
 
-## Learn More
+```bash
+git clone [your repo URL]
+cd learnlingo
+npm install
+```
 
-You can learn more in the [Vite documentation](https://vitejs.dev/guide/).
+### Environment variables
 
-To learn Vitest, a Vite-native testing framework, go to [Vitest documentation](https://vitest.dev/guide/)
+Create a `.env` file in the project root with your Firebase project's configuration:
+VITE_FIREBASE_API_KEY=
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_DATABASE_URL=
+VITE_FIREBASE_PROJECT_ID=
+VITE_FIREBASE_STORAGE_BUCKET=
+VITE_FIREBASE_MESSAGING_SENDER_ID=
+VITE_FIREBASE_APP_ID=
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+These values are available in the Firebase console under Project settings → General → Your apps.
 
-### Code Splitting
+### Running locally
 
-This section has moved here: [https://sambitsahoo.com/blog/vite-code-splitting-that-works.html](https://sambitsahoo.com/blog/vite-code-splitting-that-works.html)
+```bash
+npm run dev OR npm start
+```
 
-### Analyzing the Bundle Size
+The app will be available at `http://localhost:3000`.
 
-This section has moved here: [https://github.com/btd/rollup-plugin-visualizer#rollup-plugin-visualizer](https://github.com/btd/rollup-plugin-visualizer#rollup-plugin-visualizer)
+### Seeding the database
 
-### Making a Progressive Web App
+Import `teachers.json` into your Realtime Database under a `teachers` node (Firebase console → Realtime Database → Data tab → three-dot menu → Import JSON).
 
-This section has moved here: [https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf](https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf)
+## Project structure
 
-### Advanced Configuration
-
-This section has moved here: [https://vitejs.dev/guide/build.html#advanced-base-options](https://vitejs.dev/guide/build.html#advanced-base-options)
-
-### Deployment
-
-This section has moved here: [https://vitejs.dev/guide/build.html](https://vitejs.dev/guide/build.html)
-
-### Troubleshooting
-
-This section has moved here: [https://vitejs.dev/guide/troubleshooting.html](https://vitejs.dev/guide/troubleshooting.html)
+src/
+├── components/ reusable UI components
+├── pages/ route-level page components
+├── redux/ Redux store and slices
+├── firebase/ Firebase initialization and auth functions
+├── services/ Axios calls to the Firebase REST API
+├── hooks/ custom hooks
+└── utils/ validation schemas and helpers
