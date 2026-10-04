@@ -22,3 +22,7 @@
   background: var(--yellow);
   margin-top: 22px;
 }
+
+.loadmorebutton:hover {
+  background: var(--yellow-light);
+}

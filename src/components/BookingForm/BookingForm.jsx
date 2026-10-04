@@ -33,13 +33,13 @@ const BookingForm = ({ teacher, onSubmit, submitError }) => {
         <img
           src={teacher.avatar_url}
           alt={`${teacher.name} ${teacher.surname}`}
-          className={styles.teacherAvatar}
+          className={styles.teacheravatar}
           width="44"
           height="44"
         />
-        <div>
-          <p className={styles.teacherLabel}>Your teacher</p>
-          <p className={styles.teacherName}>
+        <div className={styles.teacherinfo}>
+          <p className={styles.teacherlabel}>Your teacher</p>
+          <p className={styles.teachername}>
             {teacher.name} {teacher.surname}
           </p>
         </div>
@@ -49,52 +49,55 @@ const BookingForm = ({ teacher, onSubmit, submitError }) => {
       </p>
       <div className={styles.reasons}>
         {REASONS.map((reason) => (
-          <label key={reason} className={styles.reasonOption}>
+          <div key={reason} className={styles.reasonoption}>
             <input
               type="radio"
+              id={reason}
               value={reason}
               {...register("reason")}
               className={styles.radio}
             />
-            {reason}
-          </label>
+            <label htmlFor={reason}>{reason}</label>
+          </div>
         ))}
       </div>
-      <div className={styles.field}>
-        <input
-          {...register("fullName")}
-          type="text"
-          placeholder="Full Name"
-          className={styles.input}
-        />
-        {errors.fullName && (
-          <p className={styles.error}>{errors.fullName.message}</p>
-        )}
-      </div>
-      <div className={styles.field}>
-        <input
-          {...register("email")}
-          type="email"
-          placeholder="Email"
-          className={styles.input}
-        />
-        {errors.email && (
-          <p className={styles.error}>{errors.email.message}</p>
-        )}
-      </div>
-      <div className={styles.field}>
-        <input
-          {...register("phone")}
-          type="tel"
-          placeholder="Phone number"
-          className={styles.input}
-        />
-        {errors.phone && (
-          <p className={styles.error}>{errors.phone.message}</p>
-        )}
+      <div className={styles.fields}>
+        <div className={styles.field}>
+          <input
+            {...register("fullName")}
+            type="text"
+            placeholder="Full Name"
+            className={styles.input}
+          />
+          {errors.fullName && (
+            <p className={styles.error}>{errors.fullName.message}</p>
+          )}
+        </div>
+        <div className={styles.field}>
+          <input
+            {...register("email")}
+            type="email"
+            placeholder="Email"
+            className={styles.input}
+          />
+          {errors.email && (
+            <p className={styles.error}>{errors.email.message}</p>
+          )}
+        </div>
+        <div className={styles.field}>
+          <input
+            {...register("phone")}
+            type="tel"
+            placeholder="Phone number"
+            className={styles.input}
+          />
+          {errors.phone && (
+            <p className={styles.error}>{errors.phone.message}</p>
+          )}
+        </div>
       </div>
       {submitError && <p className={styles.error}>{submitError}</p>}
-      <button type="submit" className={styles.submitButton}>
+      <button type="submit" className={styles.submitbutton}>
         Book
       </button>
     </form>

@@ -174,3 +174,7 @@
   line-height: 1.55556;
   margin-top: 32px;
 }
+
+.booktrialbutton:hover {
+  background: var(--yellow-light);
+}
