@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
+import { useSelector } from "react-redux";
 import styles from "./HomePage.module.css";
 
 const stats = [
@@ -8,11 +10,10 @@ const stats = [
   { value: "200+", label: "Tutor nationalities" },
 ];
 
-  const handleViewNowClick = () => {
-    navigate('/teachers');
-  };
-
 const HomePage = () => {
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { openLoginModal } = useOutletContext();
+
   return (
     <div className={styles.home}>
       <section className={styles.hero}>
@@ -26,13 +27,17 @@ const HomePage = () => {
             Elevate your language proficiency to new heights by connecting with
             highly qualified and experienced tutors.
           </p>
-          <button
+          {isLoggedIn ? (
+            <Link to="/teachers" className={styles.ctabutton}>Get Started</Link>
+            ) : (
+            <button
             type="button"
             className={styles.ctabutton}
-            onClick={handleViewNowClick}
-          >
+            onClick={openLoginModal}
+            >
             Get Started
-          </button>
+            </button>
+          )}
         </div>
         <div className={styles.heroimgwrapper}>
           {/* <img

@@ -18,11 +18,10 @@ const getAuthErrorMessage = (error) => {
   return "Something went wrong. Please try again.";
 };
 
-const Header = () => {
+const Header = ({ loginModal }) => {
   const dispatch = useDispatch();
   const { isLoggedIn, user } = useSelector((state) => state.auth);
   const registerModal = useModal();
-  const loginModal = useModal();
 
   const handleRegister = async (data) => {
     try {
