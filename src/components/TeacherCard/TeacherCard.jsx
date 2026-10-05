@@ -13,6 +13,7 @@ const TeacherCard = ({ teacher, onRequireLogin }) => {
   const { isLoggedIn, user } = useSelector((state) => state.auth);
   const favouriteIds = useSelector((state) => state.favourites.ids);
   const isFavourite = favouriteIds.includes(teacher.id);
+  const selectedLevel = useSelector((state) => state.teachers.filters.level);
 
   const {
     avatar_url,
@@ -138,7 +139,14 @@ const TeacherCard = ({ teacher, onRequireLogin }) => {
         )}
         <ul className={styles.levels}>
           {levels.map((level) => (
-            <li key={level} className={styles.leveltag}>
+            <li
+              key={level}
+              className={
+                level === selectedLevel
+                  ? `${styles.leveltag} ${styles.active}`
+                  : styles.leveltag
+              }
+            >
               #{level}
             </li>
           ))}

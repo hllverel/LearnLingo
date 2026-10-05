@@ -21,6 +21,9 @@
   text-align: center;
   background: var(--color-primary);
   margin-top: 22px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 .loadmorebutton:hover {
