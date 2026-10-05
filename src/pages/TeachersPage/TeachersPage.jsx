@@ -75,7 +75,7 @@ const TeachersPage = () => {
 
         {loginRequiredModal.isOpen && (
           <Modal onClose={loginRequiredModal.close}>
-            <p>Please log in to add teachers to your favourites.</p>
+            <p className={styles.loginwarning}>Please log in to add teachers to your favourites.</p>
           </Modal>
           )}
       </div>
