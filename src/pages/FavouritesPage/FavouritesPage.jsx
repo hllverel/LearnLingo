@@ -24,19 +24,29 @@ const FavouritesPage = () => {
   }, [favouriteIds]);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <section className={styles.layout}>
+        <p>Loading...</p>
+      </section>
+    );
   }
 
   if (teachers.length === 0) {
-    return <p>You haven't added any teachers to your favourites yet.</p>;
+    return (
+      <section className={styles.layout}>
+        <p>You haven't added any teachers to your favourites yet.</p>
+      </section>
+    );
   }
 
   return (
-    <ul className={styles.list}>
-      {teachers.map((teacher) => (
-        <TeacherCard key={teacher.id} teacher={teacher} onRequireLogin={() => {}} />
-      ))}
-    </ul>
+    <section className={styles.layout}>
+      <ul className={styles.list}>
+        {teachers.map((teacher) => (
+          <TeacherCard key={teacher.id} teacher={teacher} onRequireLogin={() => {}} />
+        ))}
+      </ul>
+    </section>
   );
 };
 

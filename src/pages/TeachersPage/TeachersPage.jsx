@@ -62,11 +62,16 @@ const TeachersPage = () => {
     <section className={styles.layout}>
       <div className={styles.wrapper}>
         <TeacherFilters />
-        <ul className={styles.list}>
-          {visibleTeachers.map((teacher) => (
-            <TeacherCard key={teacher.id} teacher={teacher} onRequireLogin={loginRequiredModal.open} />
-          ))}
-        </ul>
+
+        {visibleTeachers.length === 0 ? (
+          <p className={styles.noresults}>No teachers match your filters.</p>
+        ) : (
+          <ul className={styles.list}>
+            {visibleTeachers.map((teacher) => (
+              <TeacherCard key={teacher.id} teacher={teacher} onRequireLogin={loginRequiredModal.open} />
+            ))}
+          </ul>
+        )}
 
         {loginRequiredModal.isOpen && (
           <Modal onClose={loginRequiredModal.close}>
