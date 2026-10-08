@@ -15,7 +15,7 @@ const HomePage = () => {
   const { openLoginModal } = useOutletContext();
 
   return (
-    <div className={styles.home}>
+    <div className={styles.layout}>
       <section className={styles.hero}>
         <div className={styles.herocontent}>
           <h1>
@@ -40,11 +40,6 @@ const HomePage = () => {
           )}
         </div>
         <div className={styles.heroimgwrapper}>
-          {/* <img
-            src="/assets/heroimg-yellow.png"
-            alt="Smiling person with curly hair winking behind a laptop"
-            className={styles.heroimg}
-          /> */}
         </div>
       </section>
       <section className={styles.stats}>

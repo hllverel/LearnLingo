@@ -65,6 +65,12 @@ const TeacherCard = ({ teacher, onRequireLogin }) => {
 
   return (
     <li className={styles.card}>
+      <button type="button" className={isFavourite ? `${styles.favouritebutton} ${styles.active}` : styles.favouritebutton} onClick={handleFavouriteClick} >
+        <svg>
+          <use href="/symbol-defs.svg#favourite" />
+        </svg>
+      </button>
+      
       <div className={styles.profilepic}>
         <img
           src={avatar_url}
@@ -77,32 +83,29 @@ const TeacherCard = ({ teacher, onRequireLogin }) => {
       </div>
       <div className={styles.content}>
         <div className={styles.toprow}>
-          <p className={styles.languagesLabel}>Languages</p>
-          <div className={styles.toprowright}>
-            <div className={styles.toprowdetails}>
-              <div className={styles.lessons}>
-                <svg>
-                  <use href="/symbol-defs.svg#book" />
-                </svg>
-                <p className={styles.meta}>Lessons online</p>
-              </div>
-              <span>|</span>
-              <p className={styles.meta}>Lessons done: {lessons_done}</p>
-              <span>|</span>
-              <p className={styles.meta}>Rating: {rating}</p>
-              <span>|</span>
-              <p className={styles.meta}>
-                Price / 1 hour: <span className={styles.price}>{price_per_hour}$</span>
-              </p>
-            </div>
-            <button type="button" className={isFavourite ? `${styles.favouritebutton} ${styles.active}` : styles.favouritebutton} onClick={handleFavouriteClick} >
-              <svg>
-                <use href="/symbol-defs.svg#favourite" />
-              </svg>
-            </button>
+          <div className={styles.toprowleft}>
+            <p className={styles.languagesLabel}>Languages</p>
+            <p className={styles.name}>{name} {surname}</p>
           </div>
-        </div>
-        <p className={styles.name}>{name} {surname}</p>
+
+          <div className={styles.toprowright}>
+            <div className={styles.lessons}>
+              <svg>
+                <use href="/symbol-defs.svg#book" />
+              </svg>
+              <p className={styles.meta}>Lessons online</p>
+            </div>
+            <span>|</span>
+            <p className={styles.meta}>Lessons done: {lessons_done}</p>
+            <span>|</span>
+            <p className={styles.meta}>Rating: {rating}</p>
+            <span>|</span>
+            <p className={styles.meta}>
+              Price / 1 hour: <span className={styles.price}>{price_per_hour}$</span>
+            </p>
+          </div>
+      </div>
+        
         <div className={styles.details}>
           <p className={styles.detail}>
             <span className={styles.detaillabel}>Speaks:</span>{" "}

@@ -1,7 +1,7 @@
 .formpopup {
   border-radius: 30px;
-  width: 566px;
-  padding: 64px;
+  max-width: 566px;
+  padding: 32px 24px;
   background: var(--bg);
 }
 
@@ -35,22 +35,22 @@
   border: 1px solid rgba(18, 20, 23, 0.1);
   border-radius: 12px;
   padding: 16px 18px;
-  width: 438px;
+  width: 100%;
   height: 54px;
 }
 
 .field input::placeholder {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.375;
   color: var(--text);
 }
 
 .submitbutton {
   border-radius: 12px;
-  width: 438px;
+  width: 100%;
   height: 60px;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.55556;
   text-align: center;
   background: var(--color-primary);
@@ -59,4 +59,25 @@
 
 .submitbutton:hover {
   background: var(--color-light);
+}
+
+@media (min-width: 768px) {
+  .formpopup {
+    width: 566px;
+    padding: 64px;
+  }
+
+  .field input {
+    padding: 16px 18px;
+    width: 438px;
+  }
+
+  .field input::placeholder {
+    font-size: 16px;
+  }
+
+  .submitbutton {
+    width: 438px;
+    font-size: 18px;
+  }
 }

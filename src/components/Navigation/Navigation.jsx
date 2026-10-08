@@ -4,23 +4,23 @@ import styles from "./Navigation.module.css";
 const getLinkClass = ({ isActive }) =>
   isActive ? `${styles.link} ${styles.active}` : styles.link;
 
-const Navigation = ({ isLoggedIn }) => {
+const Navigation = ({ isLoggedIn, onNavigate }) => {
   return (
     <nav>
       <ul className={styles.nav}>
         <li>
-          <NavLink to="/" end className={getLinkClass}>
+          <NavLink to="/" end className={getLinkClass} onClick={onNavigate}>
             Home
           </NavLink>
         </li>
         <li>
-          <NavLink to="/teachers" className={getLinkClass}>
+          <NavLink to="/teachers" className={getLinkClass} onClick={onNavigate}>
             Teachers
           </NavLink>
         </li>
         {isLoggedIn && (
           <li>
-            <NavLink to="/favourites" className={getLinkClass}>
+            <NavLink to="/favourites" className={getLinkClass} onClick={onNavigate}>
               Favourites
             </NavLink>
           </li>

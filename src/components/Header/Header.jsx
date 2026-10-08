@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Navigation from "../Navigation/Navigation.jsx";
@@ -22,12 +23,14 @@ const Header = ({ loginModal }) => {
   const dispatch = useDispatch();
   const { isLoggedIn, user } = useSelector((state) => state.auth);
   const registerModal = useModal();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleRegister = async (data) => {
     try {
       registerModal.setError(null);
       await registerUser(data);
       registerModal.close();
+      setIsMenuOpen(false);
     } catch (error) {
       registerModal.setError(getAuthErrorMessage(error));
     }
@@ -38,6 +41,7 @@ const Header = ({ loginModal }) => {
       loginModal.setError(null);
       await loginUser(data);
       loginModal.close();
+      setIsMenuOpen(false);
     } catch (error) {
       loginModal.setError(getAuthErrorMessage(error));
     }
@@ -45,39 +49,54 @@ const Header = ({ loginModal }) => {
 
   const handleLogout = () => {
     logoutUser();
+    setIsMenuOpen(false);
   };
 
   return (
     <header className={styles.header}>
         <Link to="/" className={styles.logo}>
             <svg className={styles.logosvg}>
-                <use href="/symbol-defs.svg#TravelTrucksLogo"></use>
+                <use href="/symbol-defs.svg#logo"></use>
             </svg>
             <p>LearnLingo</p>
         </Link>
 
-        <Navigation isLoggedIn={isLoggedIn} />
+        <button
+          type="button"
+          className={styles.menutoggle}
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMenuOpen}
+        >
+          <svg className={styles.menuicon}>
+            <use href={`/symbol-defs.svg#${isMenuOpen ? "close" : "menu"}`} />
+          </svg>
+        </button>
 
-        {isLoggedIn ? (
-          <div className={styles.auth}>
-            <p className={styles.username}>{user.name || user.email}</p>
-            <button type="button" className={styles.registerbutton} onClick={handleLogout}>
-              Log out
-            </button>
-          </div>
-        ) : (
-          <div className={styles.auth}>
-            <button type="button" className={styles.loginbutton} onClick={loginModal.open}>
-              <svg className={styles.loginsvg}>
-                  <use href="/symbol-defs.svg#TravelTrucksLogo"></use>
-              </svg>
-              Log in
-            </button>
-            <button type="button" className={styles.registerbutton} onClick={registerModal.open}>
-              Registration
-            </button>
-          </div>
-        )}
+        <div className={isMenuOpen ? `${styles.navwrapper} ${styles.open}` : styles.navwrapper}>
+          <Navigation isLoggedIn={isLoggedIn} onNavigate={() => setIsMenuOpen(false)} />
+
+          {isLoggedIn ? (
+            <div className={styles.auth}>
+              <p className={styles.username}>{user.name || user.email}</p>
+              <button type="button" className={styles.registerbutton} onClick={handleLogout}>
+                Log out
+              </button>
+            </div>
+          ) : (
+            <div className={styles.auth}>
+              <button type="button" className={styles.loginbutton} onClick={loginModal.open}>
+                <svg className={styles.loginsvg}>
+                    <use href="/symbol-defs.svg#login"></use>
+                </svg>
+                Log in
+              </button>
+              <button type="button" className={styles.registerbutton} onClick={registerModal.open}>
+                Registration
+              </button>
+            </div>
+          )}
+        </div>
 
       {registerModal.isOpen && (
         <Modal onClose={registerModal.close}>
