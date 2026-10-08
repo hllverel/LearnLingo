@@ -4,7 +4,7 @@ LearnLingo is a web application for a company offering online language learning 
 
 ## Live demo
 
-[coming soon]
+https://learn-lingo-bay.vercel.app/
 
 ## Pages
 
