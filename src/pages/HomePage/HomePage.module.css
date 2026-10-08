@@ -165,7 +165,8 @@ h1 {
 
 @media (min-width: 1280px) {
   .layout {
-    margin: 0 64px 32px 64px;
+    margin: 0 auto;
+    margin-bottom: 32px;
   }
 
   .herocontent {
